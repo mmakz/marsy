@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Marsy!! | Shinobu Kocho Special</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #1d102e 0%, #32164d 50%, #112a32 100%);
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      color: #fff;
+      padding: 20px 10px;
+    }
+
+    /* FLOATING BACKGROUND ELEMENTS */
+    .bg-element {
+      position: absolute;
+      opacity: 0.3;
+      animation: float 8s infinite ease-in-out;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .bg-butterfly {
+      font-size: 1.6rem;
+    }
+
+    .bg-cake {
+      font-size: 1.4rem;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); opacity: 0.2; }
+      50% { transform: translateY(-35px) rotate(15deg); opacity: 0.6; }
+      100% { transform: translateY(0px) rotate(0deg); opacity: 0.2; }
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+      z-index: 2;
+    }
+
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      color: #e5b8ff;
+      text-shadow: 0 0 10px rgba(187, 134, 252, 0.6);
+    }
+
+    .container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+    }
+
+    /* ENVELOPE DESIGN */
+    .envelope-wrapper {
+      position: relative;
+      width: 320px;
+      height: 210px;
+      background-color: #2a143d;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .envelope {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .flap {
+      position: absolute;
+      top: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-top: 115px solid #441c61;
+      transform-origin: top;
+      transition: transform 0.5s ease 0.2s, z-index 0.2s 0.2s;
+      z-index: 4;
+    }
+
+    .pocket {
+      position: absolute;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid #280f3b;
+      border-right: 160px solid #280f3b;
+      border-bottom: 110px solid #371752;
+      border-radius: 0 0 8px 8px;
+      z-index: 3;
+    }
+
+    .butterfly-seal {
+      position: absolute;
+      top: 92px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 45px;
+      height: 45px;
+      background: linear-gradient(135deg, #a7f3d0, #b87bf8);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.3rem;
+      z-index: 5;
+      box-shadow: 0 0 12px rgba(167, 243, 208, 0.8);
+      transition: opacity 0.3s ease;
+    }
+
+    /* MINI PREVIEW LETTER */
+    .mini-letter {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      width: 300px;
+      height: 180px;
+      background: #fcf8ff;
+      border-radius: 6px;
+      padding: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      transition: transform 0.5s ease 0.3s;
+      z-index: 2;
+      color: #2d1836;
+      border: 1px solid #d8b4fe;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .mini-letter-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.2rem;
+      color: #6b21a8;
+    }
+
+    /* OPEN ENVELOPE ANIMATION */
+    .envelope-wrapper.open .flap {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+
+    .envelope-wrapper.open .butterfly-seal {
+      opacity: 0;
+    }
+
+    .envelope-wrapper.open .mini-letter {
+      transform: translateY(-80px);
+    }
+
+    /* FULLSCREEN POPUP CARD MODAL */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(15, 7, 26, 0.75);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: #fcf8ff;
+      width: 100%;
+      max-width: 420px;
+      max-height: 85vh;
+      border-radius: 16px;
+      padding: 25px 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(184, 123, 248, 0.4);
+      border: 2px solid #d8b4fe;
+      color: #2d1836;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      overflow-y: auto;
+      transform: scale(0.8) translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1) translateY(0);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 15px;
+      background: #f3e8ff;
+      border: none;
+      color: #6b21a8;
+      font-size: 1.2rem;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .modal-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.8rem;
+      color: #6b21a8;
+      margin-bottom: 5px;
+    }
+
+    .shinobu-img {
+      width: 100px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      margin: 10px 0 15px 0;
+    }
+
+    .modal-content {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #3b0764;
+      text-align: center;
+      width: 100%;
+    }
+
+    .modal-content p {
+      white-space: pre-line;
+    }
+
+    .hint {
+      margin-top: 30px;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      letter-spacing: 1px;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Floating Butterflies -->
+<!-- Floating Butterflies -->
+  <div class="bg-element bg-butterfly" style="top: 10%; left: 8%; animation-delay: 0s;">&#129419;</div>
+  <div class="bg-element bg-butterfly" style="top: 20%; left: 82%; animation-delay: 3s;">&#129419;</div>
+  <div class="bg-element bg-butterfly" style="top: 65%; left: 88%; animation-delay: 1.5s;">&#129419;</div>
+  <div class="bg-element bg-butterfly" style="top: 75%; left: 12%; animation-delay: 4.5s;">&#129419;</div>
+  <div class="bg-element bg-butterfly" style="top: 45%; left: 5%; animation-delay: 2s;">&#129419;</div>
+  <div class="bg-element bg-butterfly" style="top: 50%; left: 92%; animation-delay: 5s;">&#129419;</div>
+
+  <!-- Floating Birthday Cakes -->
+  <div class="bg-element bg-cake" style="top: 15%; left: 75%; animation-delay: 1s;">&#127874;</div>
+  <div class="bg-element bg-cake" style="top: 80%; left: 70%; animation-delay: 3.5s;">&#127874;</div>
+  <div class="bg-element bg-cake" style="top: 30%; left: 15%; animation-delay: 5.5s;">&#127874;</div>
+  <div class="bg-element bg-cake" style="top: 85%; left: 25%; animation-delay: 2.5s;">&#127874;</div>
+
+  <header>
+    <h1>Happy birthday mars!!&#128155</h1>
+  </header>
+
+  <div class="container">
+    <div class="envelope-wrapper" id="envelopeWrapper">
+      <div class="envelope">
+        <div class="flap"></div>
+        <div class="butterfly-seal">??</div>
+        <div class="pocket"></div>
+        
+        <div class="mini-letter">
+          <div class="mini-letter-title">Happy Birthday!</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="hint" id="hintText">Tap the envelope to open</div>
+
+  <!-- EXPANDED POPUP MODAL -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <button class="close-btn" onclick="closeModal()">&times;</button>
+      <div class="modal-title">Happy Birthday!</div>
+      <img src="https://i.imgur.com/n0MvU2w.jpeg" alt="Shinobu with Birthday Cake" class="shinobu-img" />
+      <div class="modal-content">
+        <p>Happy birthday, Marsy! &#129401;&#128155; I'm very grateful to your mom for bringing you into this world. I'm sure she's happy and watching over you from heaven, seeing the wonderful person you've become.
+
+I wish you many, many more birthdays to come and hopefully, I'll still be there to celebrate them with you. Bleh :p
+
+Take care always, and enjoy your special day! &#128155;
+-MM</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const envelopeWrapper = document.getElementById('envelopeWrapper');
+    const modalOverlay = document.getElementById('modalOverlay');
+    let isOpen = false;
+
+    function openEnvelope(e) {
+      if (e) e.preventDefault();
+      if (isOpen) return;
+      
+      isOpen = true;
+      envelopeWrapper.classList.add('open');
+
+      setTimeout(() => {
+        modalOverlay.classList.add('active');
+      }, 700);
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('active');
+      setTimeout(() => {
+        envelopeWrapper.classList.remove('open');
+        isOpen = false;
+      }, 300);
+    }
+
+    envelopeWrapper.addEventListener('touchstart', openEnvelope, { passive: false });
+    envelopeWrapper.addEventListener('click', openEnvelope);
+  </script>
+</body>
+</html>
