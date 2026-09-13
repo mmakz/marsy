@@ -3,6 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Open Graph / Link Preview Controls (Hides secret message from link preview) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="A Special Message for Marsy ✨" />
+  <meta property="og:description" content="You've received a birthday card! Tap to open." />
+  <meta property="og:image" content="https://i.imgur.com/n0MvU2w.jpeg" />
+
   <title>Happy Birthday Marsy!!</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
@@ -323,12 +330,7 @@
       <div class="modal-title">Happy Birthday!</div>
       <img src="https://i.imgur.com/n0MvU2w.jpeg" alt="Shinobu with Birthday Cake" class="shinobu-img" />
       <div class="modal-content">
-        <p>Happy birthday, Marsy! &#129401;&#128155;, My Bestie, my sister from another mother. I'm very grateful to your mom for bringing you into this world. I'm sure she's happy and watching over you from heaven. I’ll always be here for you whenever you need me.
-
-I wish you many, many more birthdays to come and hopefully, I'll still be there to celebrate them with you. Bleh :p
-
-Take care always, and enjoy your special day! &#128155;
--MM</p>
+        <p id="secretMessage"></p>
       </div>
     </div>
   </div>
@@ -337,6 +339,14 @@ Take care always, and enjoy your special day! &#128155;
   <audio id="bgMusic" src="./song.mp3" preload="auto" loop></audio>
 
   <script>
+    // Inject secret message via JS so web crawlers/scrapers can't extract it for link previews
+    document.getElementById('secretMessage').innerText = `Happy birthday, Marsy! 🥺💛, My Bestie, my sister from another mother. I'm very grateful to your mom for bringing you into this world. I'm sure she's happy and watching over you from heaven. I’ll always be here for you whenever you need me.
+
+I wish you many, many more birthdays to come and hopefully, I'll still be there to celebrate them with you. Bleh :p
+
+Take care always, and enjoy your special day! 💛
+-MM`;
+
     const envelopeWrapper = document.getElementById('envelopeWrapper');
     const modalOverlay = document.getElementById('modalOverlay');
     const bgMusic = document.getElementById('bgMusic');
