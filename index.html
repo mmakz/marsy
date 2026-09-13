@@ -4,10 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <!-- Open Graph / Link Preview Controls (Hides secret message from link preview) -->
+  <!-- Prevents Instagram, Google, and scrapers from indexing/displaying text snippets -->
+  <meta name="robots" content="noindex, nofollow, nosnippet" />
+  
+  <!-- Open Graph Controls for Instagram, Facebook, and Messenger Preview -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="A Special Message for Marsy ✨" />
-  <meta property="og:description" content="You've received a birthday card! Tap to open." />
+  <meta property="og:title" content="A Special Birthday Surprise! ✨" />
+  <meta property="og:description" content="You've received a special card. Tap to open!" />
   <meta property="og:image" content="https://i.imgur.com/n0MvU2w.jpeg" />
 
   <title>Happy Birthday Marsy!!</title>
@@ -339,13 +342,11 @@
   <audio id="bgMusic" src="./song.mp3" preload="auto" loop></audio>
 
   <script>
-    // Inject secret message via JS so web crawlers/scrapers can't extract it for link previews
-    document.getElementById('secretMessage').innerText = `Happy birthday, Marsy! 🥺💛, My Bestie, my sister from another mother. I'm very grateful to your mom for bringing you into this world. I'm sure she's happy and watching over you from heaven. I’ll always be here for you whenever you need me.
+    // Encoded message in Base64 so Instagram crawlers cannot inspect or parse the raw text
+    const encodedMessage = "SGFwcHkgYmlydGhkYXksIE1hcnN5ISDwn6aJ8J2RpVksIE15IEJlc3RpZSwgbXkgc2lzdGVyIGZyb20gYW5vdGhlciBtb3RoZXIuIEknbSB2ZXJ5IGdyYXRlZnVsIHRvIHlvdXIgbW9tIGZvciBicmluZ2luZyB5b3UgaW50byB0aGlzIHdvcmxkLiBJJ20gc3VyZSBzaGUncyBoYXBweSBhbmQgd2F0Y2hpbmcgb3ZlciB5b3UgZnJvbSBoZWF2ZW4uIEnigJlsIGFsd2F5cyBiZSBoZXJlIGZvciB5b3Ugd2hlbmV2ZXIgeW91IG5lZWQgbWUuCgpJIHdpc2ggeW91IG1hbnksIG1hbnkgbW9yZSBiaXJ0aGRheXMgdG8gY29tZSBhbmQgaG9wZWZ1bGx5LCBJJ2xsIHN0aWxsIGJlIHRoZXJlIHRvIGNlbGVicmF0ZSB0aGVtIHdpdGggeW91LiBCbGVoIDpwCgpUYWtlIGNhcmUgYWx3YXlzLCBhbmQgZW5qb3kgeW91ciBzcGVjaWFsIGRheSEg8J2RpVYKLU1N";
 
-I wish you many, many more birthdays to come and hopefully, I'll still be there to celebrate them with you. Bleh :p
-
-Take care always, and enjoy your special day! 💛
--MM`;
+    // Decodes the message dynamically on user's device
+    document.getElementById('secretMessage').innerText = decodeURIComponent(escape(atob(encodedMessage)));
 
     const envelopeWrapper = document.getElementById('envelopeWrapper');
     const modalOverlay = document.getElementById('modalOverlay');
