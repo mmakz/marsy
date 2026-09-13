@@ -362,5 +362,42 @@ Take care always, and enjoy your special day! &#128155;
     envelopeWrapper.addEventListener('touchstart', openEnvelope, { passive: false });
     envelopeWrapper.addEventListener('click', openEnvelope);
   </script>
+  <!-- BACKGROUND AUDIO -->
+  <audio id="bgMusic" src="song.mp3" preload="auto" loop></audio>
+
+  <script>
+    const envelopeWrapper = document.getElementById('envelopeWrapper');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const bgMusic = document.getElementById('bgMusic');
+    let isOpen = false;
+
+    function openEnvelope(e) {
+      if (e) e.preventDefault();
+      if (isOpen) return;
+      
+      isOpen = true;
+      envelopeWrapper.classList.add('open');
+
+      // Play audio when envelope is opened
+      if (bgMusic) {
+        bgMusic.play().catch(err => console.log("Audio play blocked:", err));
+      }
+
+      setTimeout(() => {
+        modalOverlay.classList.add('active');
+      }, 700);
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('active');
+      setTimeout(() => {
+        envelopeWrapper.classList.remove('open');
+        isOpen = false;
+      }, 300);
+    }
+
+    envelopeWrapper.addEventListener('touchstart', openEnvelope, { passive: false });
+    envelopeWrapper.addEventListener('click', openEnvelope);
+  </script>
 </body>
 </html>
