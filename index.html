@@ -339,13 +339,11 @@
   <audio id="bgMusic" src="./song.mp3" preload="auto" loop></audio>
 
   <script>
-    // Inject secret message via JS so web crawlers/scrapers can't extract it for link previews
-    document.getElementById('secretMessage').innerText = `Happy birthday, Marsy! 🥺💛, My Bestie, my sister from another mother. I'm very grateful to your mom for bringing you into this world. I'm sure she's happy and watching over you from heaven. I’ll always be here for you whenever you need me.
+    // Base64 encoded secret message to bypass link preview scrapers
+    const encodedMessage = "SGFwcHkgYmlydGhkYXksIE1hcnN5ISDwn6WL8J2RmyBNeSBCZXN0aWUsIG15IHNpc3RlciBmcm9tIGFub3RoZXIgbW90aGVyLiBJJ20gdmVyeSBncmF0ZWZ1bCB0byB5b3VyIG1vbSBmb3IgYnJpbmdpbmcgeW91IGludG8gdGhpcyB3b3JsZC4gSSdtIHN1cmUgc2hlJ3MgaGFwcHkgYW5kIHdhdGNoaW5nIG92ZXIgeW91IGZyb20gaGVhdmVuLgoKVGhhbmsgeW91IGZvciBiZWluZyBteSBmcmllbmQgYW5kIGZvciBuZXZlciBnZXR0aW5nIHRpcmVkIG9mIG1lLCBldmVuIHdoZW4gSSBwdXNoIHlvdSBhd2F5IHNvbWV0aW1lcy4gSSdsbCBhbHdheXMgYmUgaW4geW91ciBjb3JuZXIgbm8gbWF0dGVyIHdoYXQuCgpXaXNoIHlvdSBtYW55IG1vcmUgYmlydGhkYXlzIHRvIGNvbWUhIEJsZWggOnAgQ29mZmVlIHVzIHNvb24gYW5kIHNhbWd5dXAhIHBtcG0KCgRUYWtlIGNhcmUgYWx3YXlzIGFuZCBlbmpveSB5b3VyIHNwZWNpYWwgZGF5ISDwnZGZCgotTU0=";
 
-I wish you many, many more birthdays to come and hopefully, I'll still be there to celebrate them with you. Bleh :p
-
-Take care always, and enjoy your special day! 💛
--MM`;
+    // Decode and inject on load
+    document.getElementById('secretMessage').innerText = decodeURIComponent(escape(atob(encodedMessage)));
 
     const envelopeWrapper = document.getElementById('envelopeWrapper');
     const modalOverlay = document.getElementById('modalOverlay');
